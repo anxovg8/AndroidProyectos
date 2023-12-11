@@ -2,4 +2,8 @@
     <string name="app_name">EjemploPersonasBBDD</string>
     <string name="iduser">ID</string>
     <string name="nombreuser">Usuario</string>
+    <string name="idHint">ID</string>
+    <string name="nombreHint">NOMBRE</string>
+    <string name="telefono">TELEFONO</string>
+    <string name="telefonoHint">TELEFONO</string>
 </resources>

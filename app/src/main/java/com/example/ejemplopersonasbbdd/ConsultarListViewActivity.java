@@ -41,9 +41,18 @@ public class ConsultarListViewActivity extends AppCompatActivity {
         );
 
         listViewPersonas.setAdapter(adaptador);
+        listViewPersonas.setOnItemClickListener((parent, view, position, id) -> verDatos(position));
 
         /*ArrayAdapter adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listaInformacion);
         listViewPersonas.setAdapter(adaptador);*/
+    }
+
+    private void verDatos(int position) {
+        Intent intent = new Intent(this, prueba_intent_activity.class);
+        intent.putExtra("ID", listaUsuarios.get(position).getId());
+        intent.putExtra("NOMBRE", listaUsuarios.get(position).getNombre());
+        intent.putExtra("TELEFONO", listaUsuarios.get(position).getTelefono());
+        startActivity(intent);
     }
 
     private void consultarListaPersonas() {

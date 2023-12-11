@@ -13,6 +13,9 @@
         android:theme="@style/Theme.EjemploPersonasBBDD"
         tools:targetApi="31">
         <activity
+            android:name=".prueba_intent_activity"
+            android:exported="false" />
+        <activity
             android:name=".ConsultarListViewActivity"
             android:exported="false" />
         <activity
