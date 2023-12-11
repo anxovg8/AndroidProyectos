@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EjemploPersonasBBDD</string>
+    <string name="iduser">ID</string>
+    <string name="nombreuser">Usuario</string>
 </resources>

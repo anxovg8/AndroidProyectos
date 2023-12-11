@@ -2,9 +2,11 @@ package com.example.ejemplopersonasbbdd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -14,26 +16,34 @@ import com.example.ejemplopersonasbbdd.utilidades.Utilidades;
 import java.util.ArrayList;
 
 public class ConsultarListViewActivity extends AppCompatActivity {
-
+    UsuariosAdapter adaptador;
     ListView listViewPersonas;
     ArrayList<String> listaInformacion;
     ArrayList<Usuario> listaUsuarios;
 
     ConexionSQLiteHelper conn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_list_view);
 
-        conn=new ConexionSQLiteHelper(getApplicationContext(),"BDUsuarios",null,1);
+        conn = new ConexionSQLiteHelper(getApplicationContext(), "BDUsuarios", null, 1);
 
-        listViewPersonas= (ListView) findViewById(R.id.listViewPersonas);
-        
+        listViewPersonas = (ListView) findViewById(R.id.listViewPersonas);
+
         consultarListaPersonas();
 
-        ArrayAdapter adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listaInformacion);
+        this.adaptador = new UsuariosAdapter(
+                this,
+                this.listaUsuarios,
+                R.layout.usuarios_adapter
+        );
+
         listViewPersonas.setAdapter(adaptador);
-        
+
+        /*ArrayAdapter adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listaInformacion);
+        listViewPersonas.setAdapter(adaptador);*/
     }
 
     private void consultarListaPersonas() {
@@ -42,9 +52,9 @@ public class ConsultarListViewActivity extends AppCompatActivity {
         Usuario usuario = null;
         listaUsuarios = new ArrayList<Usuario>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ Utilidades.TABLA_USUARIO,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + Utilidades.TABLA_USUARIO, null);
 
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             usuario = new Usuario();
 
             usuario.setId(cursor.getInt(0));
@@ -53,15 +63,17 @@ public class ConsultarListViewActivity extends AppCompatActivity {
 
             listaUsuarios.add(usuario);
         }
-        obtenerLista();
+
+        //return listaUsuarios;
+        //obtenerLista();
     }
 
     private void obtenerLista() {
         listaInformacion = new ArrayList<String>();
 
-        for(int i=0;i<listaUsuarios.size();i++){
+        for (int i = 0; i < listaUsuarios.size(); i++) {
             listaInformacion.add(listaUsuarios.get(i).getId()
-                    +" - "+listaUsuarios.get(i).getNombre());
+                    + " - " + listaUsuarios.get(i).getNombre());
         }
     }
 }

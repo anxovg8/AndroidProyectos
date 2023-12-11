@@ -38,6 +38,9 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         btConsultar.setOnClickListener(view->consultar());
         btActualizar.setOnClickListener(view->actualizarUsuario());
         btEliminar.setOnClickListener(view->eliminarUsuario());
+
+        campoNombre.setVisibility(View.INVISIBLE);
+        campoTelefono.setVisibility(View.INVISIBLE);
     }
 
 
@@ -58,6 +61,8 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
             campoTelefono.setText(cursor.getString(1));
             cursor.close();
 
+            campoNombre.setVisibility(View.VISIBLE);
+            campoTelefono.setVisibility(View.VISIBLE);
         }catch (Exception ex){
             Toast.makeText(getApplicationContext(),"El documento no existe",Toast.LENGTH_LONG).show();
             limpiar();
@@ -77,6 +82,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         values.put(Utilidades.CAMPO_TELEFONO,campoTelefono.getText().toString());
 
         db.update(Utilidades.TABLA_USUARIO,values,Utilidades.CAMPO_ID+"=?",parametros);
+        limpiar();
         Toast.makeText(getApplicationContext(),"Ya se actualizó el usuario",Toast.LENGTH_LONG).show();
         db.close();
     }
