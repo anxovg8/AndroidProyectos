@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button btConsultarListView;
 
+    Button activityR;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +25,13 @@ public class MainActivity extends AppCompatActivity {
         btConsultar = (Button) findViewById(R.id.btConsultarUsuarios);
         btConsultarSpinner = (Button) findViewById(R.id.btConsultarConSpinner);
         btConsultarListView = (Button) findViewById(R.id.btConsultaListView);
+        activityR = (Button) findViewById(R.id.btListOnActivity);
 
         btRegistro.setOnClickListener(view->intentRegistro());
         btConsultar.setOnClickListener(view->intentConsulta());
         btConsultarSpinner.setOnClickListener(view->intentConsultaSpinner());
         btConsultarListView.setOnClickListener(view->intentConsultaLv());
-
+        activityR.setOnClickListener(view->activityRR());
     }
 
 
@@ -52,5 +55,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public  void activityRR(){
+        Intent intent = new Intent(this,LisViewActivityResult.class);
+        startActivity(intent);
+    }
 
 }

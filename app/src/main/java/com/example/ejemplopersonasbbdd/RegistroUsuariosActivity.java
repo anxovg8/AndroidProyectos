@@ -3,6 +3,7 @@ package com.example.ejemplopersonasbbdd;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -13,7 +14,8 @@ import android.widget.Toast;
 import com.example.ejemplopersonasbbdd.utilidades.Utilidades;
 
 public class RegistroUsuariosActivity extends AppCompatActivity {
-    EditText campoId,campoNombre,campoTelefono;
+    EditText campoId, campoNombre, campoTelefono;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,21 +25,30 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         campoTelefono = (EditText) findViewById(R.id.campoTelefono);
     }
 
-    public void onClick(View view){
+    public void onClick(View view) {
         registroUsuarios();
     }
 
-    private void registroUsuarios(){
-        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this,"BDUsuarios",null,1);
+    private void registroUsuarios() {
+        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this, "BDUsuarios", null, 1);
         SQLiteDatabase db = conn.getWritableDatabase();
+        try {
+            db.beginTransaction();
+            ContentValues values = new ContentValues();
+            values.put(Utilidades.CAMPO_ID, campoId.getText().toString());
+            values.put(Utilidades.CAMPO_NOMBRE, campoNombre.getText().toString());
+            values.put(Utilidades.CAMPO_TELEFONO, campoTelefono.getText().toString());
+            Long idResultante = db.insert(Utilidades.TABLA_USUARIO, Utilidades.CAMPO_ID, values);
+            //Toast.makeText(getApplicationContext(),"Id Registro: "+idResultante,Toast.LENGTH_SHORT).show();
+            db.setTransactionSuccessful();
 
-        ContentValues values = new ContentValues();
-        values.put(Utilidades.CAMPO_ID,campoId.getText().toString());
-        values.put(Utilidades.CAMPO_NOMBRE,campoNombre.getText().toString());
-        values.put(Utilidades.CAMPO_TELEFONO,campoTelefono.getText().toString());
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } finally {
+            db.close();
+            db.endTransaction();
+        }
 
-        Long idResultante = db.insert(Utilidades.TABLA_USUARIO,Utilidades.CAMPO_ID,values);
 
-        Toast.makeText(getApplicationContext(),"Id Registro: "+idResultante,Toast.LENGTH_SHORT).show();
     }
 }

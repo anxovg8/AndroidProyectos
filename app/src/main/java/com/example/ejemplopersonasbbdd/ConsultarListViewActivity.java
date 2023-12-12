@@ -23,6 +23,8 @@ public class ConsultarListViewActivity extends AppCompatActivity {
 
     ConexionSQLiteHelper conn;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,18 +43,28 @@ public class ConsultarListViewActivity extends AppCompatActivity {
         );
 
         listViewPersonas.setAdapter(adaptador);
-        listViewPersonas.setOnItemClickListener((parent, view, position, id) -> verDatos(position));
+        listViewPersonas.setOnItemLongClickListener((parent, view, position, id) -> verDatos(position));
+        //listViewPersonas.setOnItemClickListener(((parent, view, position, id) -> verDatos2(position)));
 
         /*ArrayAdapter adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listaInformacion);
         listViewPersonas.setAdapter(adaptador);*/
     }
-
-    private void verDatos(int position) {
+//    private boolean verDatos2(int position){
+//        Intent intent = new Intent(this, PruebaAtivityResult.class);
+//        intent.putExtra("ID", listaUsuarios.get(position).getId());
+//        intent.putExtra("NOMBRE", listaUsuarios.get(position).getNombre());
+//        intent.putExtra("TELEFONO", listaUsuarios.get(position).getTelefono());
+//        //this.setResult(RESULT_OK,intent);
+//        startActivityForResult(intent,CODIGO_INTENT);
+//        return true;
+//    }
+    private boolean verDatos(int position) {
         Intent intent = new Intent(this, prueba_intent_activity.class);
         intent.putExtra("ID", listaUsuarios.get(position).getId());
         intent.putExtra("NOMBRE", listaUsuarios.get(position).getNombre());
         intent.putExtra("TELEFONO", listaUsuarios.get(position).getTelefono());
         startActivity(intent);
+        return true;
     }
 
     private void consultarListaPersonas() {
