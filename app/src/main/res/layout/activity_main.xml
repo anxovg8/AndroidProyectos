@@ -55,9 +55,20 @@
         android:id="@+id/btListOnActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
         android:text="Prueba onActivityResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btConsultaListView" />
+
+    <Button
+        android:id="@+id/btFragment"
+        android:layout_width="205dp"
+        android:layout_height="46dp"
+        android:text="Prueba Fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btConsultaListView" />
+        app:layout_constraintTop_toBottomOf="@+id/btListOnActivity" />
 </androidx.constraintlayout.widget.ConstraintLayout>
